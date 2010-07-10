@@ -6,16 +6,17 @@
  *
  */
 
+package net.xivilization.ddate;
+
 import java.util.Date;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 class DiscordianDate(date: Date) {
-  val seasonNames = {
-    "Chaos"; "Discord"; "Confusion"; "Bureucracy"; "The Aftermath"};
-  val dayNames = {
-    "Sweetmorn"; "Boomtime"; "Pungenday"; "Prickle-Prickle"; "Setting Orange"};
-
+  val seasonNames = Array(
+    "Chaos", "Discord", "Confusion", "Bureucracy", "The Aftermath");
+  val dayNames = Array(
+    "Sweetmorn", "Boomtime", "Pungenday", "Prickle-Prickle", "Setting Orange");
 
   val baseCalendar: GregorianCalendar = new GregorianCalendar();
   baseCalendar.setTime(date);
@@ -30,10 +31,11 @@ class DiscordianDate(date: Date) {
   val seasonDay = (yd % 73) + 1;
 
   val seasonName = seasonNames(season-1);
-  val dayName = dayNames(yearDay-1);
+  val dayName = dayNames(yearDay % 5);
+  val tibsDay = isLeap && yearDay == 59;
 
   override def toString(): String = {
-    if (isLeap && yearDay == 59) {
+    if (tibsDay) {
       return "St. Tib's Day, " + year.toString();
     }
     else {
