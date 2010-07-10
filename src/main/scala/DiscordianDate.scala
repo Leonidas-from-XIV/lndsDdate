@@ -18,7 +18,7 @@ class DiscordianDate(date: Date) {
   val dayNames = Array(
     "Sweetmorn", "Boomtime", "Pungenday", "Prickle-Prickle", "Setting Orange")
 
-  val baseCalendar: GregorianCalendar = new GregorianCalendar()
+  val baseCalendar = new GregorianCalendar()
   baseCalendar.setTime(date)
   val year = baseCalendar.get(Calendar.YEAR) + 1166
   val yearDay = baseCalendar.get(Calendar.DAY_OF_YEAR)
@@ -34,23 +34,23 @@ class DiscordianDate(date: Date) {
   val dayName = dayNames(yearDay % 5)
   val tibsDay = isLeap && yearDay == 59
 
-  override def toString(): String = {
+  override def toString() = {
     if (tibsDay) {
-      return "St. Tib's Day, " + year.toString()
+      "St. Tib's Day, " + year.toString()
     }
     else {
-      return dayNames(weekDay-1) + ", " +
+      dayNames(weekDay-1) + ", " +
         seasonNames(season-1) + " " +
         seasonDay.toString() + ", " +
         year.toString()
     }
   }
 
-  def getTime(): Date = {
+  def getTime() = {
     var sentinelCalendar = new GregorianCalendar()
     sentinelCalendar.set(Calendar.YEAR, year - 1166)
     sentinelCalendar.set(Calendar.DAY_OF_YEAR, yearDay)
 
-    return sentinelCalendar.getTime()
+    sentinelCalendar.getTime()
   }
 }
